@@ -1,0 +1,17 @@
+tools:
+  - nome: "Valor A"
+    link: "Valor B"
+    github: "Valor C"
+    descricao: "Rich text lorem ipsum sit dolor amet"
+    categoria:
+      - "Valor D"
+      - "Valor E"
+
+  - nome: "Valor A2"
+    link: "Valor B2"
+    github: "Valor C2"
+    descricao: "Rich text lorem ipsum sit dolor amet"
+    categoria:
+      - "Valor D2"
+      - "Valor E2"
+      - "Valor F"

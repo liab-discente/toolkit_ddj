@@ -1,34 +1,37 @@
 import { useState, useEffect } from "react";
+import yaml from 'js-yaml'
+
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-import { fetcher } from "../lib/toolsService";
-import useSWR from "swr";
+// import yamlData from '../public/data/tools.yml';
 
-export async function getStaticProps() {
-  // Get external data from the file system, API, DB, etc.
-  const toolsData = await fetcher(
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSQGpf0mHI9icmvtoYou7RkRMOZhe4_ndafoYqmSjGGuL9nl4iZwVGsgbEDlaI9EtjDyiZz7nY5ip6p/pub?output=csv"
-  );
-
-  // The value of the `props` key will be
-  //  passed to the `Home` component
-  return {
-    props: {
-      toolsData,
-    },
-  };
-}
+// export async function getStaticProps() {
+//   // Get external data from the file system, API, DB, etc.
+//   const toolsData = yamlData;
+//   // The value of the `props` key will be
+//   //  passed to the `Home` component
+//   return {
+//     props: {
+//       toolsData,
+//     },
+//   };
+// }
 
 export default function Home(props) {
+  
+  // const [toolsData, setToolsData] = useState([...props.toolsData.tools]);
+  const [toolsData, setToolsData] = useState([]);
 
-  const preFetchedToolsData = props.toolsData;
-  const [toolsData, setToolsData] = useState([...props.toolsData]);
-  const [isUpdatedDataAvailable, setIsUpdatedDataAvailable] = useState(false);
+  const getUpdatedData = async() => {
+    const updatedData = await fetch('/data/tools.yml').then(res => res.text()).then(data => yaml.load(data));
+    console.log(updatedData);
+    setToolsData([...updatedData.tools]);
+  }
 
-  const {data, error} = useSWR('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQGpf0mHI9icmvtoYou7RkRMOZhe4_ndafoYqmSjGGuL9nl4iZwVGsgbEDlaI9EtjDyiZz7nY5ip6p/pub?output=csv', fetcher);
-
-  if(error) return(<div>Erro! {error}</div>)
+  useEffect(()=>{
+    getUpdatedData();
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -39,15 +42,12 @@ export default function Home(props) {
       </Head>
 
       <div>
-        Yooooo
-        {data ?
-        data.map((tool, index) => {
-          return <div key={index}>{tool["nome"]}</div>;
+        {toolsData.length > 0 ?
+        toolsData.map((tool, index) => {
+          return <div key={index}>{tool.nome}</div>;
         })
         :
-        preFetchedToolsData.map((tool, index) => {
-          return <div key={index}>{tool["nome"]}</div>;
-        })
+        <div>Loading...</div>
         }
       </div>
     </div>
