@@ -4,15 +4,14 @@ import yaml from 'js-yaml'
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-export default function Home(props) {
+export default function Home() {
   
-  // const [toolsData, setToolsData] = useState([...props.toolsData.tools]);
   const [toolsData, setToolsData] = useState([]);
 
   const getUpdatedData = async() => {
     const updatedData = await fetch('/toolkit_ddj/data/tools.yml').then(res => res.text()).then(data => yaml.load(data));
     console.log(updatedData);
-    setToolsData([...updatedData.tools]);
+    setToolsData([...updatedData]);
   }
 
   useEffect(()=>{
@@ -35,15 +34,22 @@ export default function Home(props) {
               <h2>{tool.nome}</h2>
               <p><a href={tool.link}>{tool.link}</a></p>
               <p><a href={tool.github}>{tool.github}</a></p>
-              <p>Descrição: {tool.descricao}</p>
-              <p>Categorias:</p>
-              <ul>
-              {tool.categorias.map((categoria, index) => {
-                return(
-                  <li key={index}>{categoria}</li>
-                )
-              })}
-              </ul>
+              <p>Descrição: {tool["descrição"]}</p>
+              <p>Categoria: {tool.categoria}</p>
+              {Array.isArray(tool.plataforma) ?
+                <div>
+                  <p>Plataformas:</p>
+                  <ul>
+                  {tool.plataforma.map((plataforma, index) => {
+                      return(
+                        <li key={index}>{plataforma}</li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              :
+              <p>Plataforma: {tool.plataforma}</p>
+              }
             </div>
           )
         })
