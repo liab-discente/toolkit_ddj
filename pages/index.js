@@ -9,7 +9,7 @@ export default function Home() {
   const [toolsData, setToolsData] = useState([]);
 
   const getUpdatedData = async() => {
-    const updatedData = await fetch('/toolkit_ddj/data/tools.yml').then(res => res.text()).then(data => yaml.load(data));
+    const updatedData = await fetch('https://escola-de-dados.github.io/toolkit_ddj/data/tools.yml').then(res => res.text()).then(data => yaml.load(data));
     console.log(updatedData);
     setToolsData([...updatedData]);
   }
