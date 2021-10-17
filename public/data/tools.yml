@@ -1955,3 +1955,16 @@
     open-source: False
     destaque: False
     desativado: False
+-
+    id: 154
+    nome: "Nova ferramenta"
+    link: https://exemplo.com
+    github: 
+    descrição: "Ferramenta de teste."
+    categoria: Multi
+    plataforma:
+        - Web
+        - Windows
+    open-source: False
+    destaque: False
+    desativado: False
