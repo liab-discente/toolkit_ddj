@@ -2110,3 +2110,17 @@
     open-source: False
     destaque: False
     desativado: False
+-
+    id: 154
+    nome: "Exemplo de ferramenta"
+    link: https://example.com
+    github: 
+    descrição: "Descrição exemplo."
+    categoria:
+        - Visualização
+    plataforma:
+        - Web
+        - Windows
+    open-source: False
+    destaque: False
+    desativado: False
