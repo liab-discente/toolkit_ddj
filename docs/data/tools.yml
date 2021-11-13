@@ -2110,3 +2110,17 @@
     open-source: False
     destaque: False
     desativado: False
+-
+    id: 154
+    nome: "Teste de ferramenta"
+    link: https://chrome.google.com/webstore/detail/datoris-interactive-data/kfjhkjmhmhbaafplpdocolmcedpaggjm
+    github: 
+    descrição: "Ferramenta de teste."
+    categoria:
+        - Visualização
+    plataforma:
+        - Web
+        - Windows
+    open-source: False
+    destaque: False
+    desativado: False
